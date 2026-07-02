@@ -18,4 +18,7 @@ include_directories(include)
 add_executable(http_server
     src/http_parser.cpp
     src/http_response.cpp
+    src/router.cpp
+    src/static_file.cpp
+    src/logger.cpp
 )
