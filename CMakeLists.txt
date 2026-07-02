@@ -16,4 +16,6 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 include_directories(include)
 
 add_executable(http_server
+    src/http_parser.cpp
+    src/http_response.cpp
 )
