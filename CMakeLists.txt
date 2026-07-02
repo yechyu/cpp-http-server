@@ -21,4 +21,8 @@ add_executable(http_server
     src/router.cpp
     src/static_file.cpp
     src/logger.cpp
+    src/server.cpp
+    src/main.cpp
 )
+
+target_link_libraries(http_server PRIVATE Threads::Threads)
