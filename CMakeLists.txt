@@ -26,3 +26,9 @@ add_executable(http_server
 )
 
 target_link_libraries(http_server PRIVATE Threads::Threads)
+
+add_executable(http_bench
+    bench/http_bench.cpp
+)
+
+target_link_libraries(http_bench PRIVATE Threads::Threads)

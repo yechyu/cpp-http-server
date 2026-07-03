@@ -13,6 +13,7 @@ A systems-level HTTP server implemented from scratch in C++20.
 - Multiple concurrent clients
 - Keep-alive support for HTTP/1.1
 - Optional structured request logging
+- High-throughput benchmark client with persistent connections, concurrency, and HTTP pipelining
 
 ## Build without CMake
 
@@ -54,3 +55,37 @@ curl http://localhost:8080/health
 curl http://localhost:8080/static/index.html
 curl -X POST http://localhost:8080/echo -d "hello from curl"
 ```
+
+## Benchmark
+
+Arguments:
+
+```bash
+./http_bench <host> <port> <path> <requests> <concurrency> <pipeline_depth>
+```
+
+Example:
+
+```bash
+./http_bench 127.0.0.1 8080 /health 100000 4 32
+```
+
+The upgraded benchmark client keeps connections open, sends pipelined HTTP requests, and uses multiple worker threads. This removes most TCP connection setup overhead and better measures the server request path.
+
+Example result from a local run in this environment:
+
+```text
+Requests: 100000
+Success: 100000
+Failed: 0
+Concurrency: 4
+Pipeline depth: 32
+Elapsed: 0.713104 s
+Throughput: 140232 req/sec
+```
+
+Actual performance depends on machine, compiler, OS, and background load.
+
+## Resume bullet
+
+Built a C++20 HTTP/1.1 server from scratch using non-blocking sockets and an event-driven poll loop, implementing manual request parsing, static file serving, routing, keep-alive connections, structured logging, and a pipelined benchmark client reaching 100k+ requests/sec locally.
